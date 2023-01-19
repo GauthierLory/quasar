@@ -41,10 +41,9 @@
       <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            <img :src="avatar">
           </q-avatar>
-          <div class="text-weight-bold">Razvan Stoenescu</div>
-          <div>@rstoenescu</div>
+          <div class="text-weight-bold">@{{ username }}</div>
         </div>
       </q-img>
     </q-drawer>
@@ -58,11 +57,13 @@
 import { ref } from 'vue'
 import useAuthUser from '../composables/useAuthUser.js'
 
-const { isLoggedIn } = useAuthUser()
+const { isLoggedIn, user } = useAuthUser()
 export default {
   setup () {
     return {
       drawer: ref(false),
+      avatar: ref(user.value.user_metadata.avatar_url),
+      username: ref(user.value.user_metadata.preferred_username),
       isLoggedIn
     }
   }
